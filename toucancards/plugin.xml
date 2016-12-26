@@ -7,11 +7,11 @@
     </js-module>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="cards">
-                <param name="android-package" value="ru.slowkazak.toucan.cards"/>
+            <feature name="toucancards">
+                <param name="android-package" value="ru.slowkazak.toucancards.toucancards"/>
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-        <source-file src="src/android/toucancards.java" target-dir="src/ru/slowkazak/toucan/cards"/>
+        <source-file src="src/android/toucancards.java" target-dir="src/ru/slowkazak/toucancards/toucancards"/>
     </platform>
 </plugin>
