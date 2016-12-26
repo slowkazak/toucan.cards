@@ -1,0 +1,17 @@
+{
+  "name": "toucancards",
+  "version": "0.1.2",
+  "description": "",
+  "cordova": {
+    "id": "ru.slowkazak.toucan",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "",
+  "license": "ISC"
+}
