@@ -5,7 +5,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
-
+import android.util.Log;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ComponentName;
@@ -29,42 +29,32 @@ public class toucancards extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("payment")) {
             JSONObject obj = args.getJSONObject(0);
-            this.payment(obj, callbackContext);
+        this.callbackctx = callbackContext;
+            this.payment(obj);
             return true;
         }
         return false;
     }
-
+CallbackContext callbackctx;
   /**
      * toucanpayment
      */
-    private void payment(JSONObject obj, CallbackContext callbackContext) {
+    private void payment(JSONObject obj) {
        try {
         if (obj != null) {
-Context context=this.cordova.getActivity().getApplicationContext();
+Context context=cordova.getActivity();
           Intent intent = new Intent("ru.toucan.PAYMENT");
 
-
-
-
-/*
-                    Iterator<String> iter = obj.keys();
-
-                    					while (iter.hasNext()) {
-                    						key = iter.next();
-                    						value = obj.getString(key);
-                    						 intent.putExtra(key, value);
-                    					}
-*/
      intent.putExtra("PackageName", "com.readyscript.dk.storemanagement");
-            intent.putExtra("SecureCode", "1234");
+            intent.putExtra("SecureCode", obj.getString("SecureCode"));
 
-            intent.putExtra("Amount", 100);
-            intent.putExtra("Description", "23234234");
+            intent.putExtra("Amount", obj.getInt("Amount"));
+            intent.putExtra("Description", obj.getString("Description"));
+            cordova.setActivityResultCallback(this);
              cordova.getActivity().startActivityForResult(intent, 4);
-                    callbackContext.success(obj.getString("Amount"));
+                  //  callbackContext.success(obj.getString("Amount"));
                 } else {
-                    callbackContext.error("Expected one non-empty string argument.");
+                   // callbackContext.error("Expected one non-empty string argument.");
                 }
           } catch(Exception e) {
 
@@ -83,6 +73,30 @@ Context context=this.cordova.getActivity().getApplicationContext();
          */
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
+     JSONObject  res = new JSONObject();
+                try {
+
+
+                     if (requestCode == 4) {
+             res.put("action","ru.toucan.PAYMENT");
+                       if (resultCode == -1) {
+             res.put("success",new Boolean(true));
+                                             }
+                       else if (resultCode ==0) {
+             res.put("success",new Boolean(false));
+                                                 }
+                      }
+
+ this.callbackctx.success(res);
+              } catch (JSONException e) {
+//this.callbackctx.error(new Boolean(false));
+                    e.printStackTrace();
+
+              }
+
+
+
+
 
         }
 
