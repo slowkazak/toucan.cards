@@ -56,15 +56,30 @@ public class toucancards extends CordovaPlugin {
 
                 intent.putExtra("Amount", obj.getInt("Amount"));
                 intent.putExtra("Description", obj.getString("Description"));
+
+                /**
+                 *
+                 * Добавить обработку json. Объект obj должен перебираться по циклу
+                 * внутри цикла должна выполняться функция intent.putExtra(key,value) где key - ключ из json объекта, value - значение этого ключа
+                 *
+                 * Например при переборе обэекта {SecureCode: "1234"}
+                 * в интент должен добавиться параметр intent.putExtra("SecureCode", "1234")
+                 * Все свойста должны быть добавлены "как есть", например {SecureCode: "1234" , Amount: 12345} будет преобразован в intent.putExtra("SecureCode", "1234")
+                 * и intent.putExtra("Amount", 12345) то есть поля string должны быть помещены как string, number как number и тд.
+                 *
+                 */
+
+
                 cordova.setActivityResultCallback(this);
                 cordova.getActivity().startActivityForResult(intent, 4);
-                //  callbackContext.success(obj.getString("Amount"));
             } else {
                 // callbackContext.error("Expected one non-empty string argument.");
             }
         } catch (Exception e) {
 
         }
+
+
     }
 
 
@@ -92,6 +107,7 @@ public class toucancards extends CordovaPlugin {
 
             this.callbackctx.success(res);
         } catch (JSONException e) {
+            //  почему не выполняется участок кода
 //this.callbackctx.error(new Boolean(false));
             e.printStackTrace();
 

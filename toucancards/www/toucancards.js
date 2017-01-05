@@ -17,7 +17,7 @@ cordova.define("ru.slowkazak.toucancards.toucancards", function (require, export
                         "ValueAddedTaxRate"
                     ]
                 }
-            ];
+            ]
             accessible_json_params = accessible_json_params.filter(item => item.act === act).pop();
             console.log(accessible_json_params.params);
 
