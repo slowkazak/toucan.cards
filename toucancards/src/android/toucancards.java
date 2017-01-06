@@ -69,9 +69,9 @@ public class toucancards extends CordovaPlugin {
                  *
                  */
 
-
                 cordova.setActivityResultCallback(this);
                 cordova.getActivity().startActivityForResult(intent, 4);
+                //  callbackContext.success(obj.getString("Amount"));
             } else {
                 // callbackContext.error("Expected one non-empty string argument.");
             }
@@ -94,26 +94,30 @@ public class toucancards extends CordovaPlugin {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         JSONObject res = new JSONObject();
         try {
+            JSONObject json = new JSONObject();
 
+            for (String key : data.getExtras().keySet()) {
+                Object value = data.getExtras().get(key);
+                if (value != null) {
+                    json.put(key, value);
+                }
+            }
 
             if (requestCode == 4) {
                 res.put("action", "ru.toucan.PAYMENT");
                 if (resultCode == -1) {
+
+
                     res.put("success", new Boolean(true));
+
                 } else if (resultCode == 0) {
                     res.put("success", new Boolean(false));
                 }
+                res.put("additional_data", json);
             }
-
             this.callbackctx.success(res);
         } catch (JSONException e) {
-            //  почему не выполняется участок кода
-//this.callbackctx.error(new Boolean(false));
             e.printStackTrace();
-
         }
-
-
     }
-
 }
