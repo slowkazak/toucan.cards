@@ -1,17 +1,2 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="ru.slowkazak.toucancards" version="0.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>toucancards</name>
-    <js-module name="toucancards" src="www/toucancards.js">
-        <clobbers target="cordova.plugins.toucancards"/>
-    </js-module>
-    <platform name="android">
-        <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="toucancards">
-                <param name="android-package" value="ru.slowkazak.toucancards.toucancards"/>
-            </feature>
-        </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-        <source-file src="src/android/toucancards.java" target-dir="src/ru/slowkazak/toucancards/toucancards"/>
-    </platform>
-</plugin>
+<plugin id="ru.slowkazak.toucancards" version="0.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"><name>toucancards</name><js-module name="toucancards" src="www/toucancards.js"><clobbers target="cordova.plugins.toucancards" /></js-module><platform name="android"><config-file parent="/*" target="res/xml/config.xml"><feature name="toucancards"><param name="android-package" value="ru.slowkazak.toucancards.toucancards" /></feature></config-file><config-file parent="/*" target="AndroidManifest.xml" /><source-file src="src/android/toucancards.java" target-dir="src/ru/slowkazak/toucancards/toucancards" /></platform><platform name="ios"><config-file parent="/*" target="config.xml"><feature name="toucancards"><param name="ios-package" value="toucancards" /></feature></config-file><source-file src="src/ios/toucancards.m" /></platform></plugin>

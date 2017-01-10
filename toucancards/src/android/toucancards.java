@@ -31,12 +31,21 @@ public class toucancards extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("payment")) {
-            JSONObject obj = args.getJSONObject(0);
-            this.callbackctx = callbackContext;
-            this.payment(obj);
-            return true;
+        boolean isAppInstalled = appInstalledOrNot("ru.toucan.merchant");
+        if (isAppInstalled) {
+            if (action.equals("payment")) {
+                JSONObject obj = args.getJSONObject(0);
+                this.callbackctx = callbackContext;
+                this.payment(obj);
+                return true;
+            }
+
         }
+        else {
+            callbackContext.error("app not installed");
+
+        }
+
         return false;
     }
 
@@ -69,9 +78,9 @@ public class toucancards extends CordovaPlugin {
                  *
                  */
 
+
                 cordova.setActivityResultCallback(this);
                 cordova.getActivity().startActivityForResult(intent, 4);
-                //  callbackContext.success(obj.getString("Amount"));
             } else {
                 // callbackContext.error("Expected one non-empty string argument.");
             }
@@ -81,7 +90,15 @@ public class toucancards extends CordovaPlugin {
 
 
     }
-
+    private boolean appInstalledOrNot(String uri) {
+        PackageManager pm = cordova.getActivity().getApplicationContext().getPackageManager();
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+        return false;
+    }
 
     /**
      * Обработка резулта
@@ -119,5 +136,8 @@ public class toucancards extends CordovaPlugin {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
     }
+
 }

@@ -1,6 +1,5 @@
 cordova.define("ru.slowkazak.toucancards.toucancards", function (require, exports, module) {
     var exec = require('cordova/exec');
-
     exports.start = function (act, arg, success, error) {
         // Если объект с аргументами не пуст
         if (Object.keys(arg).length) {
