@@ -60,11 +60,23 @@ public class toucancards extends CordovaPlugin {
                 Context context = cordova.getActivity();
                 Intent intent = new Intent("ru.toucan.PAYMENT");
 
-                intent.putExtra("PackageName", "com.readyscript.dk.storemanagement");
-                intent.putExtra("SecureCode", obj.getString("SecureCode"));
+//                intent.putExtra("PackageName", "com.readyscript.dk.storemanagement");
+//                intent.putExtra("SecureCode", obj.getString("SecureCode"));
+//
+//                intent.putExtra("Amount", obj.getInt("Amount"));
+//                intent.putExtra("Description", obj.getString("Description"));
 
-                intent.putExtra("Amount", obj.getInt("Amount"));
-                intent.putExtra("Description", obj.getString("Description"));
+                Iterator keys = obj.keys();
+                while (keys.hasNext()) {
+                    String dynamicKey = (String) keys.next();
+                    Object value = dynamicKey.get(dynamicKey);
+                    if (value instanceof Integer){
+                        intent.putExtra(dynamicKey, dynamicKey.getInteger(dynamicKey));
+                    } else {
+                        intent.putExtra(dynamicKey, dynamicKey.getString(dynamicKey));
+                    }
+                }
+
 
                 /**
                  *
